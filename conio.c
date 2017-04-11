@@ -12,7 +12,7 @@ void initTerminals(int echo) {
 }
 
 /* Restore old terminal i/o settings */
-void resetTermios(void) {
+void resetTerminals(void) {
     tcsetattr(0, TCSANOW, &old);
 }
 
@@ -39,7 +39,7 @@ char getch_(int echo) {
             }
         }
     }
-    resetTermios();
+    resetTerminals();
     return ch;
 }
 
