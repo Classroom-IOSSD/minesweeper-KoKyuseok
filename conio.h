@@ -1,7 +1,7 @@
 #include <termios.h>
 #include <stdio.h>
 
-void initTermios(int echo);
+void initTerminals(int echo);
 
 /* Restore old terminal i/o settings */
 void resetTermios(void);
