@@ -1,3 +1,9 @@
+/**
+ * @file conio.c
+ * @author Kyu-Seok Ko
+ * @date 2017-04-24
+ */
+
 #include "conio.h"
 
 static struct termios old, new;
