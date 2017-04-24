@@ -1,3 +1,10 @@
+/**
+ * @file minesweeper.c
+ * @author Kyu-Seok Ko
+ * @date 2017-04-24
+ * @version 1.1
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -13,6 +20,7 @@
 #define BMAG  "\x1B[45m"
 #define BCYN  "\x1B[46m"
 #define BWHT  "\x1B[47m"
+
 // text color
 #define KRED  "\x1B[31m"
 #define KGRN  "\x1B[32m"
@@ -26,8 +34,10 @@
 // global variables
 // game table
 unsigned char table_array[MAX][MAX];
+
 // location of cursor
 int x=0, y=0;
+
 // flag: input mode = 0, flag mode = 1, check mode = 2
 int game_mode=0;
 
@@ -63,7 +73,7 @@ int uncover_blank_cell(int row, int column) {
 
         if( (rows[i] >= 0 && rows[i] < MAX) && (columns[i] >= 0 && columns[i] < MAX) ) {	// to prevent negative index and out of bounds
             if(value > 0 && value <= 8)
-                table_array[rows[i]][columns[i]] += 10;										// it is a cell with 1-8 number so we need to uncover
+                table_array[rows[i]][columns[i]] += 10;		// it is a cell with 1-8 number so we need to uncover
             else if(value == 0)
                 uncover_blank_cell(rows[i], columns[i]);
         }
@@ -74,8 +84,7 @@ int uncover_blank_cell(int row, int column) {
 }
 
 void print_table() {
-    // clear screen
-    system("clear");
+    system("clear"); // clear screen
 
     int i, j, value;
     for(i = 0; i < MAX; i++) {
@@ -135,9 +144,11 @@ new_game:
         nMines = atoi(argv[1]);
     }
     srand (time(NULL));						// random seed
+
     // setting cursor
     x = 0;
     y = 0;
+
     // set all cells to 0
     for(i = 0; i < 10; i++)
         for(j = 0; j < 10; j++)
@@ -174,19 +185,18 @@ new_game:
             for(j = 0; j < 8; j++) {
                 value = table_array[rows[j]][columns[j]];
                 if( (rows[j] >= 0 && rows[j] < MAX) && (columns[j] >= 0 && columns[j] < MAX) ) {	// to prevent negative index and out of bounds
-                    if(value != 99)																// to prevent remove mines
-                        table_array[rows[j]][columns[j]] += 1;									// sums 1 to each adjacent cell
+                    if(value != 99)				// to prevent remove mines
+                        table_array[rows[j]][columns[j]] += 1;	// sums 1 to each adjacent cell
                 }
             }
 
-        } else {							// to make sure that there are the properly number of mines in table
+        } else {						// to make sure that there are the properly number of mines in table
             i--;
             continue;
         }
     }
 
-    //
-    while(nMines != 0) {			// when nMines becomes 0 you will win the game
+    while(nMines != 0) {					// when nMines becomes 0 you will win the game
         print_table();
 
         ch = getch();
@@ -204,11 +214,14 @@ flag_mode:
             do {
                 print_table();
                 direction = getch();
+
                 // arrow direction
                 if(direction == '8') {
+
                     // up
                     y = (MAX + --y) % MAX;
                 } else if(direction == '2') {
+
                     // down
                     y = ++y % MAX;
                 } else if(direction == '4') {
@@ -249,9 +262,11 @@ check_mode:
 
                 // arrow direction
                 if(direction == '8') {
+
                     // up
                     y = (MAX + --y) % MAX;
                 } else if(direction == '2') {
+
                     // down
                     y = ++y % MAX;
                 } else if(direction == '4') {
@@ -264,9 +279,9 @@ check_mode:
 
                 else if(direction == '\n') {
                     value = table_array[y][x];
-                    if(value == 0)						// blank case
+                    if(value == 0)			// blank case
                         uncover_blank_cell(y, x);
-                    else if(value == 99)				// mine case
+                    else if(value == 99)		// mine case
                         goto end_of_game;
                     else if(value > 0 && value <= 8)	// number case (the next cell is a mine)
                         table_array[y][x] += 10;
