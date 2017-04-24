@@ -14,7 +14,7 @@ $(TARGET): $(OBJS)
 
 $(OBJS): $(HEADERS)
 
-.PHONY: clean
+.PHONY: clean all
 
 clean:
 	$(RM) $(OBJS) $(TARGET)
