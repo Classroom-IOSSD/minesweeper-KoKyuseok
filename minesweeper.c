@@ -32,31 +32,31 @@ int x=0, y=0;
 int game_mode=0;
 
 /*This is a recursive function which uncovers blank cells while they are adjacent*/
-int uncover_blank_cell(int row, int col) {
+int uncover_blank_cell(int row, int column) {
     int value, rows[8], columns[8], i;
 
-    if(table_array[row][col] != 0)
+    if(table_array[row][column] != 0)
         return 0; // error
 
-    table_array[row][col] += 10; // uncover current cell
+    table_array[row][column] += 10; // uncover current cell
 
     // Get position of adjacent cells of current cell
     rows[0] = row - 1;
-    columns[0] = col + 1;
+    columns[0] = column + 1;
     rows[1] = row;
-    columns[1] = col + 1;
+    columns[1] = column + 1;
     rows[2] = row + 1;
-    columns[2] = col + 1;
+    columns[2] = column + 1;
     rows[3] = row - 1;
-    columns[3] = col;
+    columns[3] = column;
     rows[4] = row + 1;
-    columns[4] = col;
+    columns[4] = column;
     rows[5] = row - 1;
-    columns[5] = col - 1;
+    columns[5] = column - 1;
     rows[6] = row;
-    columns[6] = col - 1;
+    columns[6] = column - 1;
     rows[7] = row + 1;
-    columns[7] = col - 1;
+    columns[7] = column - 1;
 
     for(i = 0; i < 8; i++) {
         value = table_array[rows[i]][columns[i]];
